@@ -5,7 +5,7 @@ One of the most important features of the app is the SOS message alert, which al
 
 Another great feature of the app is Guard mode, which enables you to track your family members' movements in real-time. You can set up a virtual perimeter around your loved ones, and receive alerts when they leave or enter the designated area. This feature is particularly useful for parents who want to keep an eye on their children's whereabouts.
 
-The app also provides a comprehensive family member management system that allows you to keep track of your loved ones' distance from your current location, their phone battery status, and even call them directly from the app. This makes it easy to stay connected with your family members and ensure their safety and security at all times.
+The app also provides a comprehensive family member management system that allows you to keep track of your loved ones' distance from your current location, their phone battery status, and even call them directly from the app. This makes it easy to stay connected with your family members and ensure their safety and security at all times.All the contacts are fetched from the user contacts using contactsContract and added to the room database from where the user can directly add his/her family members to the family monitoring list.
 
 Overall, the family safety app is an essential tool for any family that values safety and security. With its advanced features and user-friendly interface, it is the perfect way to keep track of your loved ones and ensure their well-being no matter where they are.
 
