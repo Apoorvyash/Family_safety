@@ -16,7 +16,7 @@ import kotlinx.coroutines.withContext
 
 class HomeFragment : Fragment() {
     private val listContacts:ArrayList<InviteModel> = ArrayList()
-
+    lateinit var inviteAdapter: InviteAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val listMembers= listOf<MemberModel>(
@@ -31,13 +31,24 @@ class HomeFragment : Fragment() {
         val recycler=requireView().findViewById<RecyclerView>(R.id.recycler)
         recycler.layoutManager= LinearLayoutManager(requireContext())
         recycler.adapter=adapter
-        Log.d("FetchContacts89","Start kr dia")
-        val inviteAdapter=InviteAdapter(listContacts)
-        Log.d("FetchContacts89", "end ho gya bhai")
 
+
+
+
+        Log.d("FetchContacts89","Start kr dia")
+        Log.d("FetchContacts89", "end ho gya bhai")
+        val inviteAdapter=InviteAdapter(listContacts)
+        fetchDatabaseContacts()
         CoroutineScope(Dispatchers.IO).launch{
             Log.d("FetchContact89","this is coroutine start")
-            listContacts.addAll(fetchContacts())
+
+
+            withContext(Dispatchers.Main){
+                inviteAdapter.notifyDataSetChanged()
+            }
+
+
+            insertDatabaseContacts(fetchContacts() as ArrayList<InviteModel>)
             withContext(Dispatchers.Main){
                 inviteAdapter.notifyDataSetChanged()
             }
@@ -61,6 +72,23 @@ class HomeFragment : Fragment() {
         inviteRecycle.layoutManager=LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         inviteRecycle.adapter=inviteAdapter
     }
+
+    private fun fetchDatabaseContacts() {
+        val database=FamilySafetyDatabase.getDatabatabase(requireContext())
+        database.contactDao().getAllcontacts().observe(viewLifecycleOwner){
+            //list of contact model
+            Log.d("FetchContacts89", "fetchDatabaseContacts")
+            listContacts.clear()
+            listContacts.addAll(it)
+
+        }
+    }
+
+    private suspend fun insertDatabaseContacts(listContacts: ArrayList<InviteModel>) {
+        val database=FamilySafetyDatabase.getDatabatabase(requireContext())
+        database.contactDao().insertAll(listContacts)
+    }
+
     private fun fetchContacts(): Collection<InviteModel> {
     val listContacts:ArrayList<InviteModel> = ArrayList()
         val contres=requireActivity().contentResolver
