@@ -10,5 +10,8 @@
     <color name="grey">#938e8e</color>
     <color name="green">#63d2c8</color>
     <color name="turqoise">#C3E8E4</color>
+    <color name="orange">#F44336</color>
 
+    <color name="light_yellow">#e6ddba</color>
+    <color name="dark_green">#09ED3D</color>
 </resources>
